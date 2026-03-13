@@ -1,24 +1,30 @@
+import { useApp } from "../context/AppContext"
+import { t } from "../i18n"
+
 const GITHUB_RELEASE = "https://github.com/toukanno/rainbowmd-pages/releases/latest"
-const MS_STORE = "#" // TODO: Replace with actual Microsoft Store URL
+const MS_STORE = "https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C"
+const PRODUCT_PAGE = "https://react-modern-site-eight.vercel.app/"
 
 export default function Hero() {
+  const { lang, theme } = useApp()
+
   return (
     <section className="relative overflow-hidden px-6 pt-28 pb-20 md:pt-40 md:pb-32">
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="animate-glow absolute top-[-120px] left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[120px]" />
+        <div className={`animate-glow absolute top-[-120px] left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full ${theme.glowBg} blur-[120px]`} />
       </div>
 
       <div className="relative mx-auto max-w-4xl text-center">
         {/* Badge */}
         <div className="animate-fade-in-up mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-800/60 px-4 py-1.5 text-sm text-zinc-300 backdrop-blur">
           <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
-          v2.0 リリース — Windows 対応
+          {t("heroBadge", lang)}
         </div>
 
         {/* Title */}
         <h1 className="animate-fade-in-up animate-delay-100 text-5xl font-extrabold leading-tight tracking-tight md:text-7xl">
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
+          <span className={`bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent`}>
             Rainbow
           </span>
           MD
@@ -26,9 +32,9 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p className="animate-fade-in-up animate-delay-200 mx-auto mt-6 max-w-2xl text-lg text-zinc-400 md:text-xl">
-          書く。見る。そのまま伝わる。
+          {t("heroSubtitle1", lang)}
           <br className="hidden sm:block" />
-          リアルタイムプレビュー付き Markdown エディタ
+          {t("heroSubtitle2", lang)}
         </p>
 
         {/* CTA */}
@@ -37,10 +43,10 @@ export default function Hero() {
             href={GITHUB_RELEASE}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition hover:bg-indigo-500 hover:shadow-indigo-500/40"
+            className={`inline-flex items-center gap-2 rounded-xl ${theme.btn} px-7 py-3.5 text-sm font-semibold text-white shadow-lg ${theme.shadow} transition ${theme.shadowHover}`}
           >
             <DownloadIcon />
-            無料ダウンロード
+            {t("heroDownload", lang)}
           </a>
           <a
             href={MS_STORE}
@@ -49,7 +55,22 @@ export default function Hero() {
             className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800/80 px-7 py-3.5 text-sm font-semibold text-zinc-200 transition hover:border-zinc-600 hover:bg-zinc-700/80"
           >
             <MsStoreIcon />
-            Microsoft Store
+            {t("heroStore", lang)}
+          </a>
+        </div>
+
+        {/* Product details link */}
+        <div className="animate-fade-in-up animate-delay-400 mt-6">
+          <a
+            href={PRODUCT_PAGE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-1.5 text-sm text-zinc-500 transition hover:${theme.textIcon}`}
+          >
+            {t("heroDetails", lang)}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
           </a>
         </div>
       </div>

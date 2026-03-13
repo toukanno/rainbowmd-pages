@@ -3,7 +3,7 @@
 リアルタイムプレビュー付き Markdown エディタ
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#ダウンロード)
+[![Platform](https://img.shields.io/badge/platform-Windows-blue)](#ダウンロード)
 [![Built with Electron](https://img.shields.io/badge/built%20with-Electron-47848F)](https://www.electronjs.org/)
 [![Latest Release](https://img.shields.io/github/v/release/toukanno/rainbowmd-pages?label=latest)](https://github.com/toukanno/rainbowmd-pages/releases/latest)
 
@@ -12,16 +12,36 @@
 ## 概要
 
 RainbowMD は、左ペインで Markdown を書くと右ペインにリアルタイムで HTML プレビューが表示されるデスクトップエディタです。
-Electron ベースで Windows / macOS / Linux に対応しています。
+Electron ベースで動作し、現在は Windows 向けに提供しています。
 
 ## 機能
 
-- リアルタイムプレビュー（左右分割ビュー）
-- ツールバーによる書式挿入（見出し・太字・斜体・コードブロックなど）
-- ワード数・文字数カウント
-- HTML としてコピー
+### エディタ
+- Markdown リアルタイムプレビュー（左右分割）
+- 書式ツールバー（見出し / 太字 / 斜体 / コードブロックなど）
+- 行番号・カラム番号表示（ステータスバー）
 - Tab キーによるインデント対応
-- ステータスバーに行・カラム番号を表示
+- ワード数・文字数カウント
+
+### 検索
+- 部分一致（デフォルト）
+- 前方一致
+- 完全一致（行単位）
+- 正規表現検索
+
+### AI
+- AI 補助入力
+- AI による文章補助・文章生成
+- AI サジェスト機能
+
+### エクスポート
+- HTML へのコピー
+- JSON / JS エクスポート
+
+### UI・カスタマイズ
+- テーマ切替（ダーク・ライトなど複数対応）
+- ウィンドウ透明度調整
+- ファイル名生成パターン設定
 
 ## ダウンロード
 
@@ -29,32 +49,19 @@ Electron ベースで Windows / macOS / Linux に対応しています。
 
 | 配布形式 | リンク |
 |:--|:--|
+| Microsoft Store | [![Microsoft Store](https://img.shields.io/badge/Microsoft%20Store-Get%20it-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C) |
 | インストーラー (.exe) | [Releases ページ](https://github.com/toukanno/rainbowmd-pages/releases/latest) |
-| Microsoft Store | *準備中* |
 
-> **Microsoft Store 向けパッケージ**
-> Microsoft Store への提出には `.msix` または `.appx` 形式のパッケージが必要です。
-> 現在は `.exe` インストーラーのみ提供しています。
+> Windows 10 以降対応
+
+#### Microsoft Store リンク
+
+- **Web Store:** https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C
+- **Store deep link:** `ms-windows-store://pdp/?productid=XP8BVG4DLVCQ3C`
 
 ### macOS / Linux
 
-現在はビルド済みバイナリの配布を準備中です。
-ソースコードから直接ビルドして利用できます（下記「開発」セクションを参照）。
-
-## 開発
-
-```bash
-git clone https://github.com/toukanno/rainbowmd-pages.git
-cd rainbowmd-pages
-npm install
-npm start
-```
-
-## リリース手順
-
-1. `package.json` のバージョンを更新
-2. `npm run build` でインストーラーを生成
-3. GitHub Releases にアップロードし、リリースノートを記載
+現在は Windows 版のみ提供しています。
 
 ## 技術スタック
 
