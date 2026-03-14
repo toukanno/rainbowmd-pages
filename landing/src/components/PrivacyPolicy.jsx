@@ -56,6 +56,11 @@ const sections = [
     titleKey: "ppS5Title",
     paragraphs: ["ppS5P1"],
     list: ["ppS5L1", "ppS5L2", "ppS5L3"],
+    links: {
+      ppS5L1: "https://github.com/toukanno/rainbowmd-pages/issues",
+      ppS5L2: "https://github.com/toukanno/rainbowmd-pages",
+      ppS5L3: "https://toukanno.github.io/rainbowmd-pages/",
+    },
     after: [],
   },
 ]
@@ -122,7 +127,18 @@ export default function PrivacyPolicy() {
                   {sec.list.map((key) => (
                     <li key={key} className="flex items-start gap-2.5 text-sm text-zinc-300">
                       <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${theme.indicator}`} />
-                      {t(key, lang)}
+                      {sec.links?.[key] ? (
+                        <a
+                          href={sec.links[key]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${theme.textIcon} underline underline-offset-2 transition hover:opacity-80`}
+                        >
+                          {t(key, lang)}
+                        </a>
+                      ) : (
+                        t(key, lang)
+                      )}
                     </li>
                   ))}
                 </ul>
