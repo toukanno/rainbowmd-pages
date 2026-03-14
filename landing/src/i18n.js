@@ -3,6 +3,9 @@ const translations = {
     // Header
     headerColor: "カラー",
     headerLang: "言語",
+    headerFont: "フォント",
+    headerLearnMore: "詳しくみる",
+    headerSettings: "設定",
 
     // Hero
     heroBadge: "v2.0 リリース — Windows 対応",
@@ -116,6 +119,9 @@ const translations = {
   en: {
     headerColor: "Color",
     headerLang: "Lang",
+    headerFont: "Font",
+    headerLearnMore: "Learn More",
+    headerSettings: "Settings",
 
     heroBadge: "v2.0 Released — Windows Ready",
     heroSubtitle1: "Write. Preview. Share.",

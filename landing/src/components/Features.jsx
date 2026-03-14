@@ -91,7 +91,7 @@ function useFeatures() {
   ]
 }
 
-const SLIDE_INTERVAL = 200
+const SLIDE_INTERVAL = 700
 const CARDS_PER_VIEW = 3
 
 export default function Features() {
@@ -170,7 +170,7 @@ export default function Features() {
                 initial={{ opacity: 0, x: 40, scale: 0.95 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -40, scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
                 className={`group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 transition hover:border-zinc-700 hover:bg-zinc-800/60`}
               >
                 <div className={`mb-4 inline-flex rounded-xl ${theme.bgIcon} p-3 ${theme.textIcon} transition ${theme.bgIconHover}`}>
