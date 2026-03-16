@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react"
-// eslint-disable-next-line no-unused-vars
-import { AnimatePresence, motion } from "framer-motion"
 import { useApp } from "../context/AppContext"
 import { t } from "../i18n"
+import ScrollReveal from "./ScrollReveal"
 
 function useFeatures() {
   return [
@@ -66,7 +64,7 @@ function useFeatures() {
       descKey: "featureAIDesc",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
         </svg>
       ),
     },
@@ -91,136 +89,56 @@ function useFeatures() {
   ]
 }
 
-const SLIDE_INTERVAL = 700
-const CARDS_PER_VIEW = 3
-
 export default function Features() {
   const { lang, theme } = useApp()
   const features = useFeatures()
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isSliding, setIsSliding] = useState(false)
-
-  const totalSlides = features.length
-
-  // Auto-slide at 0.2s
-  useEffect(() => {
-    if (!isSliding) return
-    const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % totalSlides)
-    }, SLIDE_INTERVAL)
-    return () => clearInterval(id)
-  }, [isSliding, totalSlides])
-
-  // Get visible cards (3 at a time, wrapping)
-  const visibleCards = []
-  for (let i = 0; i < CARDS_PER_VIEW; i++) {
-    visibleCards.push(features[(activeIndex + i) % totalSlides])
-  }
 
   return (
-    <section id="features" className="px-6 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-14 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {t("featuresTitle", lang)}
-          </h2>
-          <p className="mt-4 text-zinc-400">
-            {t("featuresSubtitle", lang)}
-          </p>
-        </div>
+    <section id="features" className="relative px-6 py-24 md:py-36">
+      {/* Section background accent */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/[0.03] blur-[100px]" />
+      </div>
 
-        {/* Slider controls */}
-        <div className="mb-6 flex items-center justify-center gap-4">
-          <button
-            onClick={() => setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides)}
-            className="rounded-full border border-zinc-700 bg-zinc-800/80 p-2 text-zinc-400 transition hover:border-zinc-600 hover:text-white"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+      <div className="relative mx-auto max-w-6xl">
+        <ScrollReveal>
+          <div className="mb-16 text-center">
+            <span className="mb-4 inline-block rounded-full bg-violet-500/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-violet-400 uppercase">
+              Features
+            </span>
+            <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+              {t("featuresTitle", lang)}
+            </h2>
+            <p className="mx-auto mt-5 max-w-lg text-lg text-zinc-400">
+              {t("featuresSubtitle", lang)}
+            </p>
+          </div>
+        </ScrollReveal>
 
-          <button
-            onClick={() => setIsSliding(!isSliding)}
-            className={`rounded-lg border px-4 py-1.5 text-xs font-medium transition ${
-              isSliding
-                ? `${theme.btn} border-transparent text-white`
-                : "border-zinc-700 bg-zinc-800/80 text-zinc-300 hover:border-zinc-600"
-            }`}
-          >
-            {isSliding ? "Stop" : "Auto Slide"}
-          </button>
-
-          <button
-            onClick={() => setActiveIndex((prev) => (prev + 1) % totalSlides)}
-            className="rounded-full border border-zinc-700 bg-zinc-800/80 p-2 text-zinc-400 transition hover:border-zinc-600 hover:text-white"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Sliding cards (3 visible) */}
+        {/* Feature grid */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {visibleCards.map((f, i) => (
-              <motion.div
-                key={`${f.titleKey}-${(activeIndex + i) % totalSlides}`}
-                initial={{ opacity: 0, x: 40, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -40, scale: 0.95 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className={`group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 transition hover:border-zinc-700 hover:bg-zinc-800/60`}
-              >
-                <div className={`mb-4 inline-flex rounded-xl ${theme.bgIcon} p-3 ${theme.textIcon} transition ${theme.bgIconHover}`}>
+          {features.map((f, i) => (
+            <ScrollReveal key={f.titleKey} delay={i * 80}>
+              <div className="feature-card group relative rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-7 backdrop-blur-sm transition-all duration-500 hover:border-zinc-700/80 hover:bg-zinc-800/40">
+                {/* Hover glow */}
+                <div className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(124, 58, 237, 0.06), transparent 40%)`,
+                  }}
+                />
+
+                <div className={`relative mb-5 inline-flex rounded-xl ${theme.bgIcon} p-3 ${theme.textIcon} ring-1 ring-white/5 transition-all duration-300 ${theme.bgIconHover} group-hover:shadow-lg group-hover:shadow-violet-500/10`}>
                   {f.icon}
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">{t(f.titleKey, lang)}</h3>
-                <p className="text-sm leading-relaxed text-zinc-400">
-                  {t(f.descKey, lang)}
-                </p>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {/* Dot indicators */}
-        <div className="mt-6 flex items-center justify-center gap-1.5">
-          {features.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-200 ${
-                i === activeIndex
-                  ? `w-5 ${theme.indicator}`
-                  : "w-1.5 bg-zinc-700 hover:bg-zinc-500"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Full grid (all 9 cards) */}
-        <div className="mt-16">
-          <h3 className="mb-6 text-center text-lg font-semibold text-zinc-400">
-            {lang === "ja" ? "すべての機能" : "All Features"}
-          </h3>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => (
-              <div
-                key={f.titleKey}
-                className="group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 transition hover:border-zinc-700 hover:bg-zinc-800/60"
-              >
-                <div className={`mb-4 inline-flex rounded-xl ${theme.bgIcon} p-3 ${theme.textIcon} transition ${theme.bgIconHover}`}>
-                  {f.icon}
-                </div>
-                <h3 className="mb-2 text-lg font-semibold">{t(f.titleKey, lang)}</h3>
-                <p className="text-sm leading-relaxed text-zinc-400">
+                <h3 className="relative mb-2.5 text-lg font-semibold text-white">
+                  {t(f.titleKey, lang)}
+                </h3>
+                <p className="relative text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-colors duration-300">
                   {t(f.descKey, lang)}
                 </p>
               </div>
-            ))}
-          </div>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

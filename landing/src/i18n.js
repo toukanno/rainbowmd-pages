@@ -12,9 +12,9 @@ const translations = {
     heroBadge: "v2.1.2 リリース — Windows 対応",
     heroSubtitle1: "書く。見る。そのまま伝わる。",
     heroSubtitle2: "リアルタイムプレビュー付き Markdown エディタ",
-    heroDownload: "無料ダウンロード",
-    heroStore: "Get it on Microsoft Store",
-    heroDetails: "詳しく見る",
+    heroDownload: "Free Download",
+    heroStore: "Microsoft Store",
+    heroLearnMore: "Learn More",
 
     // Features
     featuresTitle: "すべてが、書くための機能",
@@ -68,9 +68,11 @@ const translations = {
     // Download
     downloadTitle: "今すぐはじめよう",
     downloadDesc1: "RainbowMD は無料で利用できます。",
-    downloadDesc2: "GitHub Releases から最新版をダウンロードしてください。",
+    downloadDesc2: "Microsoft Store または GitHub から今すぐダウンロード。",
+    downloadGithub: "GitHub Releases",
     downloadProduct: "商品紹介を見る",
-    downloadNote: "Windows 10 以降対応 ・ インストーラー (.exe) ・ MIT License",
+    downloadNote: "Windows 10 以降対応 ・ 無料 ・ MIT License",
+    downloadBadgeLabel: "Microsoft Store でも入手できます",
 
     // Privacy Policy
     ppTitle: "Privacy Policy",
@@ -129,8 +131,8 @@ const translations = {
     heroSubtitle1: "Write. Preview. Share.",
     heroSubtitle2: "A Markdown editor with real-time preview",
     heroDownload: "Free Download",
-    heroStore: "Get it on Microsoft Store",
-    heroDetails: "Learn More",
+    heroStore: "Microsoft Store",
+    heroLearnMore: "Learn More",
 
     featuresTitle: "Everything you need to write",
     featuresSubtitle: "Practical features packed into a clean interface.",
@@ -180,9 +182,11 @@ const translations = {
 
     downloadTitle: "Get started now",
     downloadDesc1: "RainbowMD is free to use.",
-    downloadDesc2: "Download the latest version from GitHub Releases.",
+    downloadDesc2: "Download now from Microsoft Store or GitHub.",
+    downloadGithub: "GitHub Releases",
     downloadProduct: "Product Details",
-    downloadNote: "Windows 10+ ・ Installer (.exe) ・ MIT License",
+    downloadNote: "Windows 10+ ・ Free ・ MIT License",
+    downloadBadgeLabel: "Also available on Microsoft Store",
 
     // Privacy Policy
     ppTitle: "Privacy Policy",

@@ -2,12 +2,13 @@
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-accent: #a78bfa;
-  --color-surface: #18181b;
-  --color-surface-light: #27272a;
-  --color-surface-lighter: #3f3f46;
+  --color-primary: #7C3AED;
+  --color-primary-light: #8B5CF6;
+  --color-secondary: #22D3EE;
+  --color-accent: #F472B6;
+  --color-surface: #111827;
+  --color-surface-light: #1F2937;
+  --color-surface-lighter: #374151;
 }
 
 html {
@@ -16,9 +17,31 @@ html {
 
 body {
   margin: 0;
-  background-color: #09090b;
+  background-color: #0B0F19;
   color: #fafafa;
 }
+
+/* ═══════════════════════════════════════════
+   Hero Gradient Text
+   ═══════════════════════════════════════════ */
+
+.hero-gradient-text {
+  background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 25%, #22D3EE 50%, #F472B6 75%, #7C3AED 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ═══════════════════════════════════════════
+   Core Animations
+   ═══════════════════════════════════════════ */
 
 @keyframes fade-in-up {
   from {
@@ -32,7 +55,7 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.7s ease-out both;
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-delay-100 { animation-delay: 0.1s; }
@@ -63,7 +86,6 @@ body {
    Release Page — Rich Effects
    ═══════════════════════════════════════════ */
 
-/* Aurora background */
 @keyframes aurora {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -75,7 +97,6 @@ body {
   animation: aurora 12s ease-in-out infinite;
 }
 
-/* Shimmer sweep for text */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -86,7 +107,6 @@ body {
   animation: shimmer 3s linear infinite;
 }
 
-/* Breathing glow behind hero */
 @keyframes breathe {
   0%, 100% { transform: scale(1); opacity: 0.3; }
   50%      { transform: scale(1.15); opacity: 0.6; }
@@ -96,7 +116,6 @@ body {
   animation: breathe 6s ease-in-out infinite;
 }
 
-/* Floating particles */
 @keyframes particle-float {
   0%   { transform: translateY(0) translateX(0); opacity: 0; }
   10%  { opacity: 1; }
@@ -108,7 +127,6 @@ body {
   animation: particle-float linear infinite;
 }
 
-/* Slide in from bottom */
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(60px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -126,7 +144,6 @@ body {
 .animate-delay-1100 { animation-delay: 1.1s; }
 .animate-delay-1200 { animation-delay: 1.2s; }
 
-/* Pulse ring on CTA */
 @keyframes pulse-ring {
   0%   { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(1.8); opacity: 0; }
@@ -136,13 +153,11 @@ body {
   animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Rotating border glow */
 @keyframes border-rotate {
   0%   { --angle: 0deg; }
   100% { --angle: 360deg; }
 }
 
-/* Neon flicker for label */
 @keyframes neon-flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 8px currentColor, 0 0 20px currentColor; }
   20%, 24%, 55% { opacity: 0.6; text-shadow: none; }
@@ -152,7 +167,6 @@ body {
   animation: neon-flicker 4s ease-in-out infinite;
 }
 
-/* Scale in */
 @keyframes scale-in {
   from { opacity: 0; transform: scale(0.8); }
   to   { opacity: 1; transform: scale(1); }
@@ -162,7 +176,6 @@ body {
   animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Light leak overlay */
 @keyframes light-leak {
   0%   { opacity: 0; transform: translateX(-100%) rotate(-12deg); }
   50%  { opacity: 0.15; }
@@ -173,7 +186,37 @@ body {
   animation: light-leak 8s ease-in-out infinite;
 }
 
-/* Card hover lift */
+/* ═══════════════════════════════════════════
+   Ripple Effect
+   ═══════════════════════════════════════════ */
+
+@keyframes ripple {
+  to {
+    transform: scale(20);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════
+   Card Hover Effects
+   ═══════════════════════════════════════════ */
+
+.feature-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(124, 58, 237, 0.15),
+              0 8px 16px -8px rgba(0, 0, 0, 0.3);
+}
+
 .release-card {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -183,17 +226,82 @@ body {
   transform: translateY(-8px) scale(1.02);
 }
 
-/* Glassmorphism */
+/* ═══════════════════════════════════════════
+   Glassmorphism
+   ═══════════════════════════════════════════ */
+
 .glass {
-  background: rgba(24, 24, 27, 0.5);
+  background: rgba(11, 15, 25, 0.5);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-strong {
-  background: rgba(24, 24, 27, 0.7);
+  background: rgba(11, 15, 25, 0.7);
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════
+   Noise Texture Overlay (applied via pseudo)
+   ═══════════════════════════════════════════ */
+
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ═══════════════════════════════════════════
+   Selection Color
+   ═══════════════════════════════════════════ */
+
+::selection {
+  background-color: rgba(124, 58, 237, 0.4);
+  color: white;
+}
+
+/* ═══════════════════════════════════════════
+   Scrollbar
+   ═══════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4B5563;
+}
+
+/* ═══════════════════════════════════════════
+   Large Image
+   ═══════════════════════════════════════════ */
+
+img.large {
+  height: 104px;
+  max-width: 200px;
+}
+
+/* SP (mobile) */
+@media (max-width: 639px) {
+  img.large {
+    height: 64px;
+    max-width: 140px;
+  }
 }

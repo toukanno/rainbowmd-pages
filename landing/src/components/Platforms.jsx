@@ -1,5 +1,6 @@
 import { useApp } from "../context/AppContext"
 import { t } from "../i18n"
+import ScrollReveal from "./ScrollReveal"
 
 export default function Platforms() {
   const { lang, theme } = useApp()
@@ -48,42 +49,49 @@ export default function Platforms() {
   ]
 
   return (
-    <section id="platforms" className="px-6 py-20 md:py-28">
+    <section id="platforms" className="relative px-6 py-24 md:py-36">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-14 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {t("platformsTitle", lang)}
-          </h2>
-          <p className="mt-4 text-zinc-400">
-            {t("platformsSubtitle", lang)}
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="mb-16 text-center">
+            <span className="mb-4 inline-block rounded-full bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-emerald-400 uppercase">
+              Platforms
+            </span>
+            <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+              {t("platformsTitle", lang)}
+            </h2>
+            <p className="mt-5 text-lg text-zinc-400">
+              {t("platformsSubtitle", lang)}
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {platforms.map((p) => (
-            <div
-              key={p.name}
-              className={`relative rounded-2xl border p-6 text-center transition ${
-                p.available
-                  ? `${theme.border} ${theme.bgFaint}`
-                  : "border-zinc-800 bg-zinc-900/40"
-              }`}
-            >
-              {p.available && (
-                <span className="absolute top-3 right-3 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
-                  Available
-                </span>
-              )}
-              <div className={`mx-auto mb-3 inline-block ${p.available ? theme.textIcon : "text-zinc-600"}`}>
-                {p.icon}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {platforms.map((p, i) => (
+            <ScrollReveal key={p.name} delay={i * 100}>
+              <div
+                className={`feature-card group relative rounded-2xl border p-7 text-center transition-all duration-500 ${
+                  p.available
+                    ? "border-violet-500/30 bg-violet-500/[0.04]"
+                    : "border-zinc-800/80 bg-zinc-900/40"
+                }`}
+              >
+                {p.available && (
+                  <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    Available
+                  </span>
+                )}
+                <div className={`mx-auto mb-4 inline-block transition-transform duration-300 group-hover:scale-110 ${p.available ? theme.textIcon : "text-zinc-600"}`}>
+                  {p.icon}
+                </div>
+                <h3 className={`text-lg font-semibold ${p.available ? "text-white" : "text-zinc-500"}`}>
+                  {p.name}
+                </h3>
+                <p className={`mt-1.5 text-sm ${p.available ? "text-zinc-400" : "text-zinc-600"}`}>
+                  {p.status}
+                </p>
               </div>
-              <h3 className={`text-lg font-semibold ${p.available ? "text-white" : "text-zinc-500"}`}>
-                {p.name}
-              </h3>
-              <p className={`mt-1 text-sm ${p.available ? "text-zinc-400" : "text-zinc-600"}`}>
-                {p.status}
-              </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

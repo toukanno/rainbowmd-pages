@@ -43,10 +43,10 @@ function ColorSwatchGrid({ color, setColor }) {
           onClick={() => setColor(c)}
           aria-label={c}
           title={c}
-          className={`h-7 w-7 rounded-full ${COLOR_SWATCHES[c]} transition-all duration-150 ring-offset-2 ring-offset-zinc-900 ${
+          className={`h-7 w-7 rounded-full ${COLOR_SWATCHES[c]} transition-all duration-200 ring-offset-2 ring-offset-zinc-900 ${
             color === c
               ? "scale-110 ring-2 ring-white/70"
-              : "opacity-60 hover:opacity-100 hover:scale-105"
+              : "opacity-60 hover:opacity-100 hover:scale-110"
           }`}
         />
       ))}
@@ -58,18 +58,34 @@ export default function Header() {
   const { color, setColor, lang, setLang, font, setFont, theme } = useApp()
   const [open, setOpen] = useState(false)
   const [colorOpen, setColorOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const panelRef = useRef(null)
   const colorRef = useRef(null)
 
   useClickOutside(panelRef, open, () => setOpen(false))
   useClickOutside(colorRef, colorOpen, () => setColorOpen(false))
 
+  // Track scroll for header style change
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-zinc-800/60 bg-[#09090b]/80 backdrop-blur-lg">
+    <header
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-zinc-800/60 bg-[#0B0F19]/85 backdrop-blur-xl shadow-lg shadow-black/20"
+          : "bg-transparent"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         {/* Logo */}
         <a href="#" className="flex items-center gap-1.5 text-lg font-bold">
-          <span className={`bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent`}>
+          <span className="hero-gradient-text bg-clip-text text-transparent">
             Rainbow
           </span>
           <span>MD</span>
@@ -80,7 +96,7 @@ export default function Header() {
           {/* Learn More link */}
           <a
             href="#features"
-            className="hidden rounded-lg border border-zinc-700/60 bg-zinc-800/60 px-4 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-zinc-600 hover:bg-zinc-700/80 sm:inline-flex"
+            className="hidden rounded-xl glass px-4 py-1.5 text-xs font-medium text-zinc-300 transition-all duration-200 hover:bg-white/10 hover:text-white sm:inline-flex"
           >
             {t("headerLearnMore", lang)}
           </a>
@@ -92,26 +108,23 @@ export default function Header() {
               aria-label={t("headerChangeColor", lang)}
               aria-expanded={colorOpen}
               title={t("headerChangeColor", lang)}
-              className={`group flex items-center gap-1.5 rounded-lg border p-1.5 transition ${
+              className={`group flex items-center gap-1.5 rounded-xl border p-1.5 transition-all duration-200 ${
                 colorOpen
                   ? `${theme.border} bg-zinc-800 text-white`
-                  : "border-zinc-700 bg-zinc-800/80 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                  : "border-zinc-700/50 bg-zinc-800/60 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 backdrop-blur"
               }`}
             >
-              {/* Current color indicator */}
               <span
-                className={`block h-4 w-4 rounded-full ${COLOR_SWATCHES[color]} ring-1 ring-white/20 transition-transform group-hover:scale-110`}
+                className={`block h-4 w-4 rounded-full ${COLOR_SWATCHES[color]} ring-1 ring-white/20 transition-transform duration-200 group-hover:scale-110`}
               />
-              {/* Palette icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
               </svg>
             </button>
 
-            {/* Color picker popover */}
             {colorOpen && (
-              <div className="absolute right-0 mt-2 w-52 rounded-xl border border-zinc-700/60 bg-zinc-900/95 p-3 shadow-2xl backdrop-blur-lg">
-                <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500 uppercase">
+              <div className="absolute right-0 mt-2 w-52 rounded-2xl glass-strong p-4 shadow-2xl">
+                <p className="mb-2.5 text-xs font-medium tracking-wide text-zinc-500 uppercase">
                   {t("headerColor", lang)}
                 </p>
                 <ColorSwatchGrid color={color} setColor={setColor} />
@@ -122,7 +135,7 @@ export default function Header() {
           {/* Language toggle */}
           <button
             onClick={() => setLang(lang === "ja" ? "en" : "ja")}
-            className="rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-zinc-600 hover:bg-zinc-700"
+            className="rounded-xl border border-zinc-700/50 bg-zinc-800/60 px-3 py-1.5 text-xs font-medium text-zinc-300 backdrop-blur transition-all duration-200 hover:bg-white/10 hover:text-white"
           >
             {lang === "ja" ? "EN" : "日本語"}
           </button>
@@ -132,10 +145,10 @@ export default function Header() {
             <button
               onClick={() => { setOpen(!open); if (colorOpen) setColorOpen(false) }}
               aria-label={t("headerSettings", lang)}
-              className={`rounded-lg border p-2 transition ${
+              className={`rounded-xl border p-2 transition-all duration-200 ${
                 open
                   ? `${theme.border} bg-zinc-800 text-white`
-                  : "border-zinc-700 bg-zinc-800/80 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                  : "border-zinc-700/50 bg-zinc-800/60 text-zinc-400 backdrop-blur hover:border-zinc-600 hover:text-zinc-200"
               }`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -144,23 +157,19 @@ export default function Header() {
               </svg>
             </button>
 
-            {/* Settings panel */}
             {open && (
-              <div className="absolute right-0 mt-2 w-64 rounded-xl border border-zinc-700/60 bg-zinc-900/95 p-4 shadow-2xl backdrop-blur-lg">
-                {/* Color */}
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl glass-strong p-5 shadow-2xl">
                 <div className="mb-4">
-                  <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                  <p className="mb-2.5 text-xs font-medium tracking-wide text-zinc-500 uppercase">
                     {t("headerColor", lang)}
                   </p>
                   <ColorSwatchGrid color={color} setColor={setColor} />
                 </div>
 
-                {/* Divider */}
-                <div className="mb-4 h-px bg-zinc-800" />
+                <div className="mb-4 h-px bg-zinc-700/50" />
 
-                {/* Font */}
                 <div>
-                  <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                  <p className="mb-2.5 text-xs font-medium tracking-wide text-zinc-500 uppercase">
                     {t("headerFont", lang)}
                   </p>
                   <div className="flex gap-2">
@@ -168,10 +177,10 @@ export default function Header() {
                       <button
                         key={f}
                         onClick={() => setFont(f)}
-                        className={`flex-1 rounded-lg border px-3 py-1.5 text-xs font-medium transition ${
+                        className={`flex-1 rounded-xl border px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                           font === f
                             ? `${theme.border} ${theme.bgFaint} text-white`
-                            : "border-zinc-700 bg-zinc-800/60 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                            : "border-zinc-700/50 bg-zinc-800/60 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
                         }`}
                       >
                         {FONT_LABELS[f]}
