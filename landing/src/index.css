@@ -298,10 +298,10 @@ img.large {
   max-width: 200px;
 }
 
-/* SP (mobile) */
-@media (max-width: 639px) {
-  img.large {
-    height: 64px;
-    max-width: 140px;
+/* SP (mobile) — Microsoft Store badge */
+@media (max-width: 768px) {
+  img[alt="Microsoft Store app badge"] {
+    max-width: 100%;
+    height: auto;
   }
 }
