@@ -131,7 +131,7 @@ export default function Download() {
             {/* Microsoft Store official badge — supplementary, size-constrained for SP */}
             <div className="mt-8 flex flex-col items-center gap-2 sm:mt-10 sm:gap-3">
               <p className="text-[10px] text-zinc-500 sm:text-xs">{t("downloadBadgeLabel", lang)}</p>
-              <div className="max-w-[280px] sm:max-w-none">
+              <div className="max-w-[200px] sm:max-w-none">
                 <ms-store-badge
                   productid="xp8bvg4dlvcq3c"
                   productname="RainbowMD"

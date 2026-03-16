@@ -301,7 +301,7 @@ img.large {
 /* SP (mobile) — Microsoft Store badge */
 @media (max-width: 768px) {
   img[alt="Microsoft Store app badge"] {
-    max-width: 100%;
+    max-width: 200px;
     height: auto;
   }
 }
