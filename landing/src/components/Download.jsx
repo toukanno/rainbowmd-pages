@@ -128,10 +128,10 @@ export default function Download() {
               </a>
             </div>
 
-            {/* Microsoft Store official badge — supplementary, size-constrained for SP */}
-            <div className="mt-8 flex flex-col items-center gap-2 sm:mt-10 sm:gap-3">
+            {/* Microsoft Store official badge — hidden on SP */}
+            <div className="mt-8 hidden flex-col items-center gap-2 sm:mt-10 sm:flex sm:gap-3">
               <p className="text-[10px] text-zinc-500 sm:text-xs">{t("downloadBadgeLabel", lang)}</p>
-              <div className="max-w-[200px] sm:max-w-none">
+              <div>
                 <ms-store-badge
                   productid="xp8bvg4dlvcq3c"
                   productname="RainbowMD"
