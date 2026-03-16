@@ -8,6 +8,7 @@ import Platforms from "./components/Platforms"
 import Download from "./components/Download"
 import Footer from "./components/Footer"
 import PrivacyPolicy from "./components/PrivacyPolicy"
+import ReleasePage from "./components/ReleasePage"
 
 function useHashRoute() {
   const [hash, setHash] = useState(window.location.hash)
@@ -25,11 +26,17 @@ function AppInner() {
   const { font } = useApp()
   const hash = useHashRoute()
   const isPrivacy = hash === "#privacy-policy"
+  const isRelease = hash === "#release" || hash.startsWith("#release-v")
 
   return (
     <div className={`min-h-screen bg-[#09090b] text-zinc-50 ${FONTS[font]}`}>
       <Header />
-      {isPrivacy ? (
+      {isRelease ? (
+        <>
+          <ReleasePage />
+          <Footer />
+        </>
+      ) : isPrivacy ? (
         <>
           <PrivacyPolicy />
           <Footer />

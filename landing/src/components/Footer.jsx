@@ -20,6 +20,9 @@ export default function Footer() {
           <a href="https://github.com/toukanno/rainbowmd-pages" target="_blank" rel="noopener noreferrer" className="transition hover:text-zinc-300">
             GitHub
           </a>
+          <a href="#release" className="transition hover:text-zinc-300">
+            v2.1.2 Release
+          </a>
           <a href="https://github.com/toukanno/rainbowmd-pages/releases/latest" target="_blank" rel="noopener noreferrer" className="transition hover:text-zinc-300">
             Releases
           </a>

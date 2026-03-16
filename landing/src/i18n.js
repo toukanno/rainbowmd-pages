@@ -6,9 +6,10 @@ const translations = {
     headerFont: "フォント",
     headerLearnMore: "詳しくみる",
     headerSettings: "設定",
+    headerChangeColor: "カラーを変更",
 
     // Hero
-    heroBadge: "v2.0 リリース — Windows 対応",
+    heroBadge: "v2.1.2 リリース — Windows 対応",
     heroSubtitle1: "書く。見る。そのまま伝わる。",
     heroSubtitle2: "リアルタイムプレビュー付き Markdown エディタ",
     heroDownload: "無料ダウンロード",
@@ -122,8 +123,9 @@ const translations = {
     headerFont: "Font",
     headerLearnMore: "Learn More",
     headerSettings: "Settings",
+    headerChangeColor: "Change Color",
 
-    heroBadge: "v2.0 Released — Windows Ready",
+    heroBadge: "v2.1.2 Released — Windows Ready",
     heroSubtitle1: "Write. Preview. Share.",
     heroSubtitle2: "A Markdown editor with real-time preview",
     heroDownload: "Free Download",

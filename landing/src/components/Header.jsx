@@ -22,20 +22,47 @@ const COLOR_SWATCHES = {
 
 const FONT_LABELS = { sans: "Sans", serif: "Serif", mono: "Mono" }
 
-export default function Header() {
-  const { color, setColor, lang, setLang, font, setFont, theme } = useApp()
-  const [open, setOpen] = useState(false)
-  const panelRef = useRef(null)
-
+function useClickOutside(ref, open, onClose) {
   useEffect(() => {
     function handleClick(e) {
-      if (panelRef.current && !panelRef.current.contains(e.target)) {
-        setOpen(false)
+      if (ref.current && !ref.current.contains(e.target)) {
+        onClose()
       }
     }
     if (open) document.addEventListener("mousedown", handleClick)
     return () => document.removeEventListener("mousedown", handleClick)
-  }, [open])
+  }, [ref, open, onClose])
+}
+
+function ColorSwatchGrid({ color, setColor }) {
+  return (
+    <div className="grid grid-cols-5 gap-2">
+      {COLOR_KEYS.map((c) => (
+        <button
+          key={c}
+          onClick={() => setColor(c)}
+          aria-label={c}
+          title={c}
+          className={`h-7 w-7 rounded-full ${COLOR_SWATCHES[c]} transition-all duration-150 ring-offset-2 ring-offset-zinc-900 ${
+            color === c
+              ? "scale-110 ring-2 ring-white/70"
+              : "opacity-60 hover:opacity-100 hover:scale-105"
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
+
+export default function Header() {
+  const { color, setColor, lang, setLang, font, setFont, theme } = useApp()
+  const [open, setOpen] = useState(false)
+  const [colorOpen, setColorOpen] = useState(false)
+  const panelRef = useRef(null)
+  const colorRef = useRef(null)
+
+  useClickOutside(panelRef, open, () => setOpen(false))
+  useClickOutside(colorRef, colorOpen, () => setColorOpen(false))
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-zinc-800/60 bg-[#09090b]/80 backdrop-blur-lg">
@@ -58,6 +85,40 @@ export default function Header() {
             {t("headerLearnMore", lang)}
           </a>
 
+          {/* Quick Color Picker */}
+          <div className="relative" ref={colorRef}>
+            <button
+              onClick={() => { setColorOpen(!colorOpen); if (open) setOpen(false) }}
+              aria-label={t("headerChangeColor", lang)}
+              aria-expanded={colorOpen}
+              title={t("headerChangeColor", lang)}
+              className={`group flex items-center gap-1.5 rounded-lg border p-1.5 transition ${
+                colorOpen
+                  ? `${theme.border} bg-zinc-800 text-white`
+                  : "border-zinc-700 bg-zinc-800/80 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+              }`}
+            >
+              {/* Current color indicator */}
+              <span
+                className={`block h-4 w-4 rounded-full ${COLOR_SWATCHES[color]} ring-1 ring-white/20 transition-transform group-hover:scale-110`}
+              />
+              {/* Palette icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+              </svg>
+            </button>
+
+            {/* Color picker popover */}
+            {colorOpen && (
+              <div className="absolute right-0 mt-2 w-52 rounded-xl border border-zinc-700/60 bg-zinc-900/95 p-3 shadow-2xl backdrop-blur-lg">
+                <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500 uppercase">
+                  {t("headerColor", lang)}
+                </p>
+                <ColorSwatchGrid color={color} setColor={setColor} />
+              </div>
+            )}
+          </div>
+
           {/* Language toggle */}
           <button
             onClick={() => setLang(lang === "ja" ? "en" : "ja")}
@@ -69,7 +130,7 @@ export default function Header() {
           {/* Settings gear */}
           <div className="relative" ref={panelRef}>
             <button
-              onClick={() => setOpen(!open)}
+              onClick={() => { setOpen(!open); if (colorOpen) setColorOpen(false) }}
               aria-label={t("headerSettings", lang)}
               className={`rounded-lg border p-2 transition ${
                 open
@@ -91,21 +152,7 @@ export default function Header() {
                   <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500 uppercase">
                     {t("headerColor", lang)}
                   </p>
-                  <div className="grid grid-cols-5 gap-2">
-                    {COLOR_KEYS.map((c) => (
-                      <button
-                        key={c}
-                        onClick={() => setColor(c)}
-                        aria-label={c}
-                        title={c}
-                        className={`h-7 w-7 rounded-full ${COLOR_SWATCHES[c]} transition-all duration-150 ring-offset-2 ring-offset-zinc-900 ${
-                          color === c
-                            ? "scale-110 ring-2 ring-white/70"
-                            : "opacity-60 hover:opacity-100 hover:scale-105"
-                        }`}
-                      />
-                    ))}
-                  </div>
+                  <ColorSwatchGrid color={color} setColor={setColor} />
                 </div>
 
                 {/* Divider */}
