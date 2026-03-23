@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { useApp } from "../context/AppContext"
 
 const GITHUB_RELEASE = "https://github.com/toukanno/rainbowmd-pages/releases/tag/v2.1.2"
-const DIRECT_DOWNLOAD = "https://github.com/toukanno/rainbowmd-pages/releases/download/v2.1.2/RainbowMD.Setup.2.1.2.exe"
+const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 
 /* ──────────────────────────────────────────
    Release data
@@ -205,6 +205,13 @@ function SectionTitle({ icon, title, theme }) {
 export default function ReleasePage() {
   const { lang, theme } = useApp()
   const data = changes[lang] || changes.ja
+  const [platform, setPlatform] = useState("windows")
+
+  function handleDownload() {
+    if (platform === "windows") {
+      window.open(MS_STORE, "_blank", "noopener,noreferrer")
+    }
+  }
 
   /* Mouse tracking for card glow */
   useEffect(() => {
@@ -324,16 +331,33 @@ export default function ReleasePage() {
 
           {/* CTA buttons */}
           <div className="animate-slide-up animate-delay-600 mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            {/* Primary download */}
+            {/* Platform selector */}
             <div className="relative">
-              {/* Pulse ring behind button */}
+              <select
+                value={platform}
+                onChange={(e) => setPlatform(e.target.value)}
+                className="appearance-none rounded-2xl bg-zinc-800/80 border border-zinc-600/50 px-6 py-4.5 pr-12 text-base font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
+              >
+                <option value="windows">Windows（Microsoft Store）</option>
+                <option value="macos" disabled>MacOS（App Store）— 審査中</option>
+                <option value="steam" disabled>Steam — Coming Soon</option>
+                <option value="web" disabled>Web版 — Coming Soon</option>
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            {/* Download button */}
+            <div className="relative">
               <div
                 className="animate-pulse-ring absolute inset-0 rounded-2xl"
                 style={{ background: `${theme.accent}30` }}
               />
-              <a
-                href={DIRECT_DOWNLOAD}
-                className="relative inline-flex items-center gap-3 rounded-2xl px-10 py-4.5 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
+              <button
+                onClick={handleDownload}
+                disabled={platform !== "windows"}
+                className="relative inline-flex items-center gap-3 rounded-2xl px-10 py-4.5 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{
                   background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentLight})`,
                   boxShadow: `0 0 40px ${theme.accent}40, 0 20px 60px ${theme.accent}20`,
@@ -341,7 +365,7 @@ export default function ReleasePage() {
               >
                 <DownloadIcon />
                 {downloadLabel} v2.1.2
-              </a>
+              </button>
             </div>
 
             {/* MS Store badge — hidden on SP */}
@@ -487,9 +511,28 @@ export default function ReleasePage() {
               </p>
 
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a
-                  href={DIRECT_DOWNLOAD}
-                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105"
+                {/* Platform selector */}
+                <div className="relative">
+                  <select
+                    value={platform}
+                    onChange={(e) => setPlatform(e.target.value)}
+                    className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
+                  >
+                    <option value="windows">Windows（Microsoft Store）</option>
+                    <option value="macos" disabled>MacOS（App Store）— 審査中</option>
+                    <option value="steam" disabled>Steam — Coming Soon</option>
+                    <option value="web" disabled>Web版 — Coming Soon</option>
+                  </select>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+
+                {/* Download button */}
+                <button
+                  onClick={handleDownload}
+                  disabled={platform !== "windows"}
+                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-3 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{
                     background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentLight})`,
                     boxShadow: `0 0 30px ${theme.accent}30`,
@@ -497,7 +540,8 @@ export default function ReleasePage() {
                 >
                   <DownloadIcon />
                   {downloadLabel} v2.1.2
-                </a>
+                </button>
+
                 {/* MS Store badge — hidden on SP */}
                 <div className="hidden sm:flex items-center">
                   <ms-store-badge
