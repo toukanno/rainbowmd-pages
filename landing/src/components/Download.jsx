@@ -133,12 +133,12 @@ export default function Download() {
               <p className="text-[10px] text-zinc-500 sm:text-xs">{t("downloadBadgeLabel", lang)}</p>
               <div>
                 <ms-store-badge
-                  productid="xp8bvg4dlvcq3c"
-                  productname="RainbowMD"
+                  productid="9n0mg9wf2lbg"
+                  productname="RainbowMD2"
                   window-mode="direct"
-                  theme="dark"
+                  theme="light"
                   size="large"
-                  language={lang}
+                  language="ja"
                   animation="on"
                 />
               </div>
