@@ -6,6 +6,7 @@ import ScrollReveal from "./ScrollReveal"
 const GITHUB_RELEASE = "https://github.com/toukanno/rainbowmd-pages/releases/latest"
 const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 const PRODUCT_PAGE = "https://react-modern-site-eight.vercel.app/"
+const KOFI = "https://ko-fi.com/rainbowmd"
 
 function RippleLink({ href, children, className, target = "_blank" }) {
   const [ripples, setRipples] = useState([])
@@ -154,6 +155,14 @@ export default function Download() {
                 </svg>
                 {t("downloadProduct", lang)}
               </a>
+
+              {/* Ko-fi Support */}
+              <RippleLink
+                href={KOFI}
+                className="group inline-flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] px-6 py-3 text-sm font-semibold text-amber-300 shadow-lg shadow-black/10 transition-all duration-300 hover:border-amber-400/50 hover:bg-amber-500/[0.12] hover:text-amber-200 hover:scale-[1.03] sm:rounded-2xl sm:px-7 sm:py-4 sm:text-base"
+              >
+                {t("downloadKofi", lang)}
+              </RippleLink>
             </div>
 
             {/* Microsoft Store official badge — hidden on SP */}

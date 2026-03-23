@@ -73,6 +73,7 @@ const translations = {
     downloadGithub: "GitHub Releases",
     downloadProduct: "商品紹介を見る",
     downloadNote: "Windows 10 以降対応 ・ 無料 ・ MIT License",
+    downloadKofi: "☕ サポートする",
     downloadBadgeLabel: "Microsoft Store でも入手できます",
 
     // Privacy Policy
@@ -188,6 +189,7 @@ const translations = {
     downloadGithub: "GitHub Releases",
     downloadProduct: "Product Details",
     downloadNote: "Windows 10+ ・ Free ・ MIT License",
+    downloadKofi: "☕ Support on Ko-fi",
     downloadBadgeLabel: "Also available on Microsoft Store",
 
     // Privacy Policy
