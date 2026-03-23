@@ -205,14 +205,6 @@ function SectionTitle({ icon, title, theme }) {
 export default function ReleasePage() {
   const { lang, theme } = useApp()
   const data = changes[lang] || changes.ja
-  const [platform, setPlatform] = useState("windows")
-
-  function handleDownload() {
-    if (platform === "windows") {
-      window.open(MS_STORE, "_blank", "noopener,noreferrer")
-    }
-  }
-
   /* Mouse tracking for card glow */
   useEffect(() => {
     function handleMouse(e) {
@@ -231,7 +223,6 @@ export default function ReleasePage() {
   const newTitle = lang === "ja" ? "新機能" : "New Features"
   const improvedTitle = lang === "ja" ? "改善" : "Improvements"
   const fixedTitle = lang === "ja" ? "修正" : "Bug Fixes"
-  const downloadLabel = lang === "ja" ? "ダウンロード" : "Download"
   const changelogLabel = lang === "ja" ? "完全なリリースノートを見る" : "View Full Release Notes"
   const backLabel = lang === "ja" ? "トップに戻る" : "Back to Top"
 
@@ -329,44 +320,46 @@ export default function ReleasePage() {
               : "Enhanced AI assistant, command palette, major performance improvements — an update that accelerates your writing experience."}
           </p>
 
-          {/* CTA — Platform select + Download */}
-          <div className="animate-slide-up animate-delay-600 mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            {/* Platform selector */}
-            <div className="relative">
-              <select
-                value={platform}
-                onChange={(e) => setPlatform(e.target.value)}
-                className="appearance-none rounded-2xl bg-zinc-800/80 border border-zinc-600/50 px-6 py-4 pr-11 text-base font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
-              >
-                <option value="windows">Windows（Microsoft Store）</option>
-                <option value="macos" disabled>MacOS（App Store）— 審査中</option>
-                <option value="steam" disabled>Steam — Coming Soon</option>
-                <option value="web" disabled>Web版 — Coming Soon</option>
-              </select>
-              <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-
-            {/* Download button */}
+          {/* CTA — per-platform buttons */}
+          <div className="animate-slide-up animate-delay-600 mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            {/* Windows — active */}
             <div className="relative">
               <div
                 className="animate-pulse-ring absolute inset-0 rounded-2xl"
                 style={{ background: `${theme.accent}30` }}
               />
-              <button
-                onClick={handleDownload}
-                disabled={platform !== "windows"}
-                className="relative inline-flex items-center gap-3 rounded-2xl px-10 py-4.5 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+              <a
+                href={MS_STORE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative inline-flex items-center gap-3 rounded-2xl px-8 py-4 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl"
                 style={{
                   background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentLight})`,
                   boxShadow: `0 0 40px ${theme.accent}40, 0 20px 60px ${theme.accent}20`,
                 }}
               >
                 <DownloadIcon />
-                {downloadLabel} v2.1.2
-              </button>
+                Windows
+              </a>
             </div>
+
+            {/* MacOS — disabled */}
+            <span className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-base font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+              MacOS
+              <span className="text-xs text-zinc-600">({lang === "ja" ? "審査中" : "Under Review"})</span>
+            </span>
+
+            {/* Steam — disabled */}
+            <span className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-base font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+              Steam
+              <span className="text-xs text-zinc-600">Coming Soon</span>
+            </span>
+
+            {/* Web — disabled */}
+            <span className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-base font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+              Web
+              <span className="text-xs text-zinc-600">Coming Soon</span>
+            </span>
           </div>
 
           {/* Changelog link */}
@@ -497,37 +490,39 @@ export default function ReleasePage() {
                   : "Experience faster, smarter writing with v2.1.2."}
               </p>
 
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                {/* Platform selector */}
-                <div className="relative">
-                  <select
-                    value={platform}
-                    onChange={(e) => setPlatform(e.target.value)}
-                    className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3.5 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
-                  >
-                    <option value="windows">Windows（Microsoft Store）</option>
-                    <option value="macos" disabled>MacOS（App Store）— 審査中</option>
-                    <option value="steam" disabled>Steam — Coming Soon</option>
-                    <option value="web" disabled>Web版 — Coming Soon</option>
-                  </select>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-
-                {/* Download button */}
-                <button
-                  onClick={handleDownload}
-                  disabled={platform !== "windows"}
-                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+                {/* Windows — active */}
+                <a
+                  href={MS_STORE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentLight})`,
                     boxShadow: `0 0 30px ${theme.accent}30`,
                   }}
                 >
                   <DownloadIcon />
-                  {downloadLabel} v2.1.2
-                </button>
+                  Windows
+                </a>
+
+                {/* MacOS — disabled */}
+                <span className="inline-flex items-center gap-2 rounded-xl px-7 py-4 text-sm font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+                  MacOS
+                  <span className="text-[10px] text-zinc-600">({lang === "ja" ? "審査中" : "Under Review"})</span>
+                </span>
+
+                {/* Steam — disabled */}
+                <span className="inline-flex items-center gap-2 rounded-xl px-7 py-4 text-sm font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+                  Steam
+                  <span className="text-[10px] text-zinc-600">Coming Soon</span>
+                </span>
+
+                {/* Web — disabled */}
+                <span className="inline-flex items-center gap-2 rounded-xl px-7 py-4 text-sm font-semibold text-zinc-500 bg-zinc-800/60 border border-zinc-700/40 cursor-not-allowed opacity-50">
+                  Web
+                  <span className="text-[10px] text-zinc-600">Coming Soon</span>
+                </span>
               </div>
 
               <p className="mt-6 text-xs text-zinc-600">
