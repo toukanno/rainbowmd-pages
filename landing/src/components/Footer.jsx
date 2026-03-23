@@ -36,7 +36,7 @@ export default function Footer() {
           <a href="#privacy-policy" className="transition-colors duration-200 hover:text-violet-400">
             Privacy Policy
           </a>
-          <a href="https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200 hover:text-violet-400">
+          <a href="https://apps.microsoft.com/detail/9N0MG9WF2LBG" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200 hover:text-violet-400">
             Microsoft Store
           </a>
           <a href="https://react-modern-site-eight.vercel.app/" target="_blank" rel="noopener noreferrer" className="transition-colors duration-200 hover:text-violet-400">

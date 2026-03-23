@@ -4,7 +4,7 @@ import { t } from "../i18n"
 
 const GITHUB_RELEASE = "https://github.com/toukanno/rainbowmd-pages/releases/tag/v2.1.2"
 const DIRECT_DOWNLOAD = "https://github.com/toukanno/rainbowmd-pages/releases/download/v2.1.2/RainbowMD.Setup.2.1.2.exe"
-const MS_STORE = "https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C"
+const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 
 /* ──────────────────────────────────────────
    Release data

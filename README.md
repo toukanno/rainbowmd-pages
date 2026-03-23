@@ -60,7 +60,7 @@ Electron ベースで動作し、Windows / macOS に対応しています。
 
 | 配布形式 | リンク |
 |:--|:--|
-| Microsoft Store | [![Microsoft Store](https://img.shields.io/badge/Microsoft%20Store-Get%20it-blue?logo=microsoft)](https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C) |
+| Microsoft Store | [![Microsoft Store](https://img.shields.io/badge/Microsoft%20Store-Get%20it-blue?logo=microsoft)](https://apps.microsoft.com/detail/9N0MG9WF2LBG) |
 | インストーラー (.exe) | [RainbowMD.Setup.2.1.2.exe](https://toukanno.github.io/rainbowmd-pages/releases/windows/download/v2.1.2/RainbowMD.Setup.2.1.2.exe) |
 
 > Windows 10 以降対応

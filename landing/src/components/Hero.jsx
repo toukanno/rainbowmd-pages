@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useApp } from "../context/AppContext"
 import { t } from "../i18n"
 
-const MS_STORE = "https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C"
+const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 
 function RippleButton({ href, children, className, ...props }) {
   const [ripples, setRipples] = useState([])

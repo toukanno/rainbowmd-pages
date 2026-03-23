@@ -4,7 +4,7 @@ import { t } from "../i18n"
 import ScrollReveal from "./ScrollReveal"
 
 const GITHUB_RELEASE = "https://github.com/toukanno/rainbowmd-pages/releases/latest"
-const MS_STORE = "https://apps.microsoft.com/store/detail/XP8BVG4DLVCQ3C"
+const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 const PRODUCT_PAGE = "https://react-modern-site-eight.vercel.app/"
 
 function RippleLink({ href, children, className, target = "_blank" }) {
