@@ -146,20 +146,20 @@ export default function Download() {
               </RippleLink>
             </div>
 
-            {/* Microsoft Store official badge — hidden on SP */}
+            {/* Microsoft Store button — hidden on SP */}
             <div className="mt-8 hidden flex-col items-center gap-2 sm:mt-10 sm:flex sm:gap-3">
               <p className="text-[10px] text-zinc-500 sm:text-xs">{t("downloadBadgeLabel", lang)}</p>
-              <div>
-                <ms-store-badge
-                  productid="9n0mg9wf2lbg"
-                  productname="RainbowMD2"
-                  window-mode="direct"
-                  theme="light"
-                  size="large"
-                  language="ja"
-                  animation="on"
-                />
-              </div>
+              <a
+                href={MS_STORE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:scale-[1.03] hover:text-white sm:rounded-2xl sm:px-7 sm:py-4 sm:text-base"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.4 2H2v9.4h9.4V2zM22 2h-9.4v9.4H22V2zM11.4 12.6H2V22h9.4v-9.4zM22 12.6h-9.4V22H22v-9.4z" />
+                </svg>
+                Microsoft Store
+              </a>
             </div>
 
             <p className="mt-5 text-[10px] text-zinc-600 sm:mt-6 sm:text-xs">
