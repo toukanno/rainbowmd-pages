@@ -44,6 +44,13 @@ function RippleLink({ href, children, className, target = "_blank" }) {
 
 export default function Download() {
   const { lang, theme } = useApp()
+  const [platform, setPlatform] = useState("windows")
+
+  function handleDownload() {
+    if (platform === "windows") {
+      window.open(MS_STORE, "_blank", "noopener,noreferrer")
+    }
+  }
 
   // Load MS Store badge script
   useEffect(() => {
@@ -89,21 +96,42 @@ export default function Download() {
               {t("downloadDesc2", lang)}
             </p>
 
-            {/* Triple CTA — 3 buttons */}
+            {/* Platform select + Download button */}
             <div className="mt-8 flex flex-col items-center justify-center gap-2.5 sm:mt-10 sm:flex-row sm:gap-4">
-              {/* Primary: Free Download → MS Store */}
-              <RippleLink
-                href={MS_STORE}
-                className="group inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-2xl shadow-violet-500/30 transition-all duration-300 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:shadow-violet-500/50 hover:scale-[1.03] hover:brightness-110 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-base"
+              {/* Platform selector */}
+              <div className="relative">
+                <select
+                  value={platform}
+                  onChange={(e) => setPlatform(e.target.value)}
+                  className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base cursor-pointer"
+                >
+                  <option value="windows">Windows（Microsoft Store）</option>
+                  <option value="macos" disabled>MacOS（App Store）— 審査中</option>
+                  <option value="steam" disabled>Steam — Coming Soon</option>
+                  <option value="web" disabled>Web版 — Coming Soon</option>
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400 sm:right-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+
+              {/* Download button */}
+              <button
+                onClick={handleDownload}
+                disabled={platform !== "windows"}
+                className="group inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-2xl shadow-violet-500/30 transition-all duration-300 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:shadow-violet-500/50 hover:scale-[1.03] hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-violet-500/30 disabled:hover:brightness-100 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-base"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
                 </svg>
                 Free Download
                 <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 sm:rounded-2xl" />
-              </RippleLink>
+              </button>
+            </div>
 
-              {/* Secondary: GitHub Releases */}
+            {/* Secondary links */}
+            <div className="mt-4 flex flex-col items-center justify-center gap-2.5 sm:flex-row sm:gap-4">
+              {/* GitHub Releases */}
               <RippleLink
                 href={GITHUB_RELEASE}
                 className="group inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:scale-[1.03] hover:text-white sm:rounded-2xl sm:px-7 sm:py-4 sm:text-base"
@@ -114,7 +142,7 @@ export default function Download() {
                 {t("downloadGithub", lang)}
               </RippleLink>
 
-              {/* Tertiary: Product Details */}
+              {/* Product Details */}
               <a
                 href={PRODUCT_PAGE}
                 target="_blank"
