@@ -38,7 +38,7 @@ function RippleButton({ href, children, className, ...props }) {
 }
 
 export default function Hero() {
-  const { lang, theme } = useApp()
+  const { lang } = useApp()
   const sectionRef = useRef(null)
   const [scrollY, setScrollY] = useState(0)
 
@@ -142,14 +142,18 @@ export default function Hero() {
             <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 sm:rounded-2xl" />
           </RippleButton>
 
-          {/* Secondary: Microsoft Store */}
-          <RippleButton
-            href={MS_STORE}
-            className="group inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:scale-[1.03] hover:text-white sm:rounded-2xl sm:px-7 sm:py-4 sm:text-base"
-          >
-            <MsStoreIcon />
-            {t("heroStore", lang)}
-          </RippleButton>
+          {/* Secondary: Microsoft Store badge — hidden on SP */}
+          <div className="hidden sm:flex items-center">
+            <ms-store-badge
+              productid="9n0mg9wf2lbg"
+              productname="RainbowMD2"
+              window-mode="direct"
+              theme="light"
+              size="large"
+              language="ja"
+              animation="on"
+            />
+          </div>
 
           {/* Tertiary: Learn More */}
           <a
@@ -183,14 +187,6 @@ function DownloadIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-    </svg>
-  )
-}
-
-function MsStoreIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M11.4 2H2v9.4h9.4V2zM22 2h-9.4v9.4H22V2zM11.4 12.6H2V22h9.4v-9.4zM22 12.6h-9.4V22H22v-9.4z" />
     </svg>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useApp } from "../context/AppContext"
 import { t } from "../i18n"
 import ScrollReveal from "./ScrollReveal"
@@ -44,7 +44,7 @@ function RippleLink({ href, children, className, target = "_blank" }) {
 }
 
 export default function Download() {
-  const { lang, theme } = useApp()
+  const { lang } = useApp()
   const [platform, setPlatform] = useState("windows")
 
   function handleDownload() {
@@ -53,16 +53,6 @@ export default function Download() {
     }
   }
 
-  // Load MS Store badge script
-  useEffect(() => {
-    const id = "ms-store-badge-script"
-    if (document.getElementById(id)) return
-    const script = document.createElement("script")
-    script.id = id
-    script.type = "module"
-    script.src = "https://get.microsoft.com/badge/ms-store-badge.bundled.js"
-    document.head.appendChild(script)
-  }, [])
 
   return (
     <section id="download" className="relative px-6 py-24 md:py-36">
