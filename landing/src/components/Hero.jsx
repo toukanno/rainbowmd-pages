@@ -4,43 +4,17 @@ import { t } from "../i18n"
 
 const MS_STORE = "https://apps.microsoft.com/detail/9N0MG9WF2LBG"
 
-function RippleButton({ href, children, className, ...props }) {
-  const [ripples, setRipples] = useState([])
-
-  function handleClick(e) {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const id = Date.now()
-    setRipples((prev) => [...prev, { x, y, id }])
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 600)
-  }
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`relative overflow-hidden ${className}`}
-      onClick={handleClick}
-      {...props}
-    >
-      {ripples.map((r) => (
-        <span
-          key={r.id}
-          className="absolute animate-ripple rounded-full bg-white/30"
-          style={{ left: r.x - 10, top: r.y - 10, width: 20, height: 20 }}
-        />
-      ))}
-      {children}
-    </a>
-  )
-}
-
 export default function Hero() {
   const { lang } = useApp()
   const sectionRef = useRef(null)
   const [scrollY, setScrollY] = useState(0)
+  const [platform, setPlatform] = useState("windows")
+
+  function handleDownload() {
+    if (platform === "windows") {
+      window.open(MS_STORE, "_blank", "noopener,noreferrer")
+    }
+  }
 
   // Parallax
   useEffect(() => {
@@ -130,32 +104,37 @@ export default function Hero() {
           <span className="text-zinc-500">{t("heroSubtitle2", lang)}</span>
         </p>
 
-        {/* CTA Buttons — 3-button layout */}
+        {/* CTA — Platform select + Download */}
         <div className="animate-fade-in-up animate-delay-300 mt-10 flex flex-col items-center justify-center gap-2.5 sm:mt-12 sm:flex-row sm:gap-4">
-          {/* Primary: Free Download */}
-          <RippleButton
-            href={MS_STORE}
-            className="group inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-2xl shadow-violet-500/30 transition-all duration-300 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:shadow-violet-500/50 hover:scale-[1.03] hover:brightness-110 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-base"
+          {/* Platform selector */}
+          <div className="relative">
+            <select
+              value={platform}
+              onChange={(e) => setPlatform(e.target.value)}
+              className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base cursor-pointer"
+            >
+              <option value="windows">Windows（Microsoft Store）</option>
+              <option value="macos" disabled>MacOS（App Store）— 審査中</option>
+              <option value="steam" disabled>Steam — Coming Soon</option>
+              <option value="web" disabled>Web版 — Coming Soon</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400 sm:right-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+
+          {/* Download button */}
+          <button
+            onClick={handleDownload}
+            disabled={platform !== "windows"}
+            className="group inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-2xl shadow-violet-500/30 transition-all duration-300 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:shadow-violet-500/50 hover:scale-[1.03] hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-violet-500/30 disabled:hover:brightness-100 sm:rounded-2xl sm:px-8 sm:py-4 sm:text-base"
           >
             <DownloadIcon />
             {t("heroDownload", lang)}
             <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 sm:rounded-2xl" />
-          </RippleButton>
+          </button>
 
-          {/* Secondary: Microsoft Store badge — hidden on SP */}
-          <div className="hidden sm:flex items-center">
-            <ms-store-badge
-              productid="9n0mg9wf2lbg"
-              productname="RainbowMD2"
-              window-mode="direct"
-              theme="light"
-              size="large"
-              language="ja"
-              animation="on"
-            />
-          </div>
-
-          {/* Tertiary: Learn More */}
+          {/* Learn More */}
           <a
             href="#features"
             className="group inline-flex items-center gap-2 rounded-xl border border-zinc-700/60 px-6 py-3 text-sm font-semibold text-zinc-400 shadow-lg shadow-black/10 transition-all duration-300 hover:border-violet-500/40 hover:text-zinc-200 hover:scale-[1.03] hover:bg-white/[0.03] sm:rounded-2xl sm:px-7 sm:py-4 sm:text-base"

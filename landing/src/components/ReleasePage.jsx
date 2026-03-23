@@ -329,14 +329,14 @@ export default function ReleasePage() {
               : "Enhanced AI assistant, command palette, major performance improvements — an update that accelerates your writing experience."}
           </p>
 
-          {/* CTA buttons */}
+          {/* CTA — Platform select + Download */}
           <div className="animate-slide-up animate-delay-600 mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {/* Platform selector */}
             <div className="relative">
               <select
                 value={platform}
                 onChange={(e) => setPlatform(e.target.value)}
-                className="appearance-none rounded-2xl bg-zinc-800/80 border border-zinc-600/50 px-6 py-4.5 pr-12 text-base font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
+                className="appearance-none rounded-2xl bg-zinc-800/80 border border-zinc-600/50 px-6 py-4 pr-11 text-base font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
               >
                 <option value="windows">Windows（Microsoft Store）</option>
                 <option value="macos" disabled>MacOS（App Store）— 審査中</option>
@@ -366,19 +366,6 @@ export default function ReleasePage() {
                 <DownloadIcon />
                 {downloadLabel} v2.1.2
               </button>
-            </div>
-
-            {/* MS Store badge — hidden on SP */}
-            <div className="hidden sm:flex items-center">
-              <ms-store-badge
-                productid="9n0mg9wf2lbg"
-                productname="RainbowMD2"
-                window-mode="direct"
-                theme="light"
-                size="large"
-                language="ja"
-                animation="on"
-              />
             </div>
           </div>
 
@@ -516,7 +503,7 @@ export default function ReleasePage() {
                   <select
                     value={platform}
                     onChange={(e) => setPlatform(e.target.value)}
-                    className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
+                    className="appearance-none rounded-xl bg-zinc-800/80 border border-zinc-600/50 px-5 py-3.5 pr-10 text-sm font-semibold text-zinc-200 shadow-xl shadow-black/20 outline-none transition-all duration-300 focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 cursor-pointer"
                   >
                     <option value="windows">Windows（Microsoft Store）</option>
                     <option value="macos" disabled>MacOS（App Store）— 審査中</option>
@@ -532,7 +519,7 @@ export default function ReleasePage() {
                 <button
                   onClick={handleDownload}
                   disabled={platform !== "windows"}
-                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-3 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{
                     background: `linear-gradient(135deg, ${theme.accent}, ${theme.accentLight})`,
                     boxShadow: `0 0 30px ${theme.accent}30`,
@@ -541,19 +528,6 @@ export default function ReleasePage() {
                   <DownloadIcon />
                   {downloadLabel} v2.1.2
                 </button>
-
-                {/* MS Store badge — hidden on SP */}
-                <div className="hidden sm:flex items-center">
-                  <ms-store-badge
-                    productid="9n0mg9wf2lbg"
-                    productname="RainbowMD2"
-                    window-mode="direct"
-                    theme="light"
-                    size="large"
-                    language="ja"
-                    animation="on"
-                  />
-                </div>
               </div>
 
               <p className="mt-6 text-xs text-zinc-600">
