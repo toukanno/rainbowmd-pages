@@ -63,6 +63,7 @@ const translations = {
     platformsSubtitle: "まずは Windows から。今後、モバイルにも展開予定です。",
     platformAvailable: "対応済み",
     platformPlanned: "対応予定",
+    platformReview: "審査中",
     platformFuture: "今後対応予定",
 
     // Download
@@ -178,6 +179,7 @@ const translations = {
     platformsSubtitle: "Starting with Windows. Mobile support is coming soon.",
     platformAvailable: "Available",
     platformPlanned: "Planned",
+    platformReview: "Under Review",
     platformFuture: "Coming Soon",
 
     downloadTitle: "Get started now",
